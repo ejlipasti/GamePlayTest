@@ -4,6 +4,9 @@ package com.example.elijahtesch.gameplaytest;
  * Created by elijahtesch on 5/31/17.
  */
 
+
+
+
 public class Globals {
     public static int SCREEN_WIDTH;
     public static int SCREEN_HEIGHT;
