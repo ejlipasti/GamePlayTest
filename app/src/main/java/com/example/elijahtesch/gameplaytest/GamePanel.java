@@ -19,6 +19,8 @@ import java.util.Random;
 
 //Test Git hub Commit & Push
 
+//Change Commit Terminal
+
 public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     private MainThread thread;
     private Player player;
