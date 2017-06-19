@@ -20,6 +20,9 @@ public class Player {
     double velX;
     double minXVel;
     double maxXVel;
+    double maxJumpHeight;
+    double jumpingVelocity;
+    int initialJumpHeight;
     //velocity meters per second squared
     double accY;
     double accX;
@@ -30,19 +33,22 @@ public class Player {
 
     public Player(){
         draw_x = Globals.SCREEN_WIDTH / 4;
-        radius = 0.66;
+        radius = 0.8;
         draw_radius = (int)(radius * Globals.PIX_PER_M);
         velX = 0;
         velY = 0;
-        accX = 0.45;
+        accX = 0.25;
         accY = 0;
         x = 0;
         y = 5.0;
         onGround = false;
         jumping = false;
         accelerating = false;
-        minXVel = 6;
+        minXVel = 10;
         maxXVel = 25;
+        maxJumpHeight = 5;
+        jumpingVelocity = 7;
+
     }
 
     public void collidesWith(Ground g){
@@ -54,26 +60,35 @@ public class Player {
             onGround = true;
             velY = 0;
             y = radius + g.getY() + g.getH() / 2;
-          edge = g.getX() + g.getW() / 2;
+            edge = g.getX() + g.getW() / 2;
       }
     }
 
 
     public void update(){
-        //System.out.println(onGround);
+        //stop jumping based on max jump height
+        if (y > initialJumpHeight + maxJumpHeight) jumping = false;
+        //fall of right edge of ground
         if (x > edge) onGround = false;
-        if(!onGround){
-            velY += Globals.G / MainThread.MAX_FPS;
-            y += velY / MainThread.MAX_FPS;
-        }else{
+
+
+        //physics update
+        if (onGround){
           if (accelerating && velX < maxXVel){
             velX += accX;
           }else if(!accelerating && velX > minXVel){
-            velX -= accX * 3;
+            velX -= accX;
           }
+        }else{
+          if (!jumping){
+              velY += Globals.G / MainThread.MAX_FPS;
+          }
+          y += velY / MainThread.MAX_FPS;
         }
         x += velX / MainThread.MAX_FPS;
 
+        //fall reset for debugging
+        if(y < -3) y = 10;
 
         draw_y = (int)(Globals.SCREEN_HEIGHT - y * Globals.PIX_PER_M);
     }
@@ -92,11 +107,17 @@ public class Player {
       accelerating = false;
     }
 
-    public void jump(){
-      if(onGround){
-          onGround = false;
-        velY = 7;
-      }
+    public void startJump(){
+        if(onGround) {
+            jumping = true;
+            onGround = false;
+            velY = jumpingVelocity;
+            y += velY / MainThread.MAX_FPS;
+        }
+    }
+
+    public void stopJump(){
+      jumping = false;
     }
 
     public double getX(){

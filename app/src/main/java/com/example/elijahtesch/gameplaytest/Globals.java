@@ -19,7 +19,7 @@ public class Globals {
         SCENE_HEIGHT = 10; //height of scene
         SCENE_WIDTH = SCENE_HEIGHT * ((double)SCREEN_WIDTH / SCREEN_HEIGHT);
         PIX_PER_M = SCREEN_HEIGHT / SCENE_HEIGHT;
-        G = -9.8; //meters per second squared
+        G = -15; //meters per second squared
         System.out.println("Pixel/Meter  = " + PIX_PER_M);
         System.out.println("G = " + G);
     }
