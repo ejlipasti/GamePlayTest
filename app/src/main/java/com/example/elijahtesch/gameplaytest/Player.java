@@ -22,7 +22,7 @@ public class Player {
     double maxXVel;
     double maxJumpHeight;
     double jumpingVelocity;
-    int initialJumpHeight;
+    double initialJumpHeight;
     //velocity meters per second squared
     double accY;
     double accX;
@@ -33,7 +33,7 @@ public class Player {
 
     public Player(){
         draw_x = Globals.SCREEN_WIDTH / 4;
-        radius = 0.8;
+        radius = 1;
         draw_radius = (int)(radius * Globals.PIX_PER_M);
         velX = 0;
         velY = 0;
@@ -44,7 +44,7 @@ public class Player {
         onGround = false;
         jumping = false;
         accelerating = false;
-        minXVel = 10;
+        minXVel = 0;
         maxXVel = 25;
         maxJumpHeight = 5;
         jumpingVelocity = 7;
@@ -112,6 +112,7 @@ public class Player {
             jumping = true;
             onGround = false;
             velY = jumpingVelocity;
+            initialJumpHeight = y;
             y += velY / MainThread.MAX_FPS;
         }
     }

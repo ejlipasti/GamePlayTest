@@ -100,7 +100,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
                 objects.remove(i);
                 Random r = new Random();
                 double newX = objects.get(objects.size() - 1).getX() + 5 + 5 * r.nextInt(2);
-                objects.add(new Ground(newX, Globals.SCENE_HEIGHT / 16,5 + 5 * r.nextInt(2), Globals.SCENE_HEIGHT / 8 ));
+                double newY = Globals.SCENE_HEIGHT / 16 + r.nextInt(3) * (Globals.SCENE_HEIGHT / 4);
+                objects.add(new Ground(newX, newY,5 + 5 * r.nextInt(2), Globals.SCENE_HEIGHT / 8 ));
             }
         }
         player.update();
