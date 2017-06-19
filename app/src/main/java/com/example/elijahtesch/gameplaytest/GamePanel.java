@@ -21,8 +21,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     private MainThread thread;
     private Player player;
     private ArrayList<Ground> objects;
-    int groundSpacing = 15;
-    int groundWidth = 20;
+    int groundSpacing = 20;
+    int groundWidth = 15;
 
     public GamePanel(Context context) {
         super(context);
@@ -39,7 +39,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     public void surfaceCreated(SurfaceHolder holder) {
         thread = new MainThread(getHolder(),this);
         objects = new ArrayList<>();
-        for(int i = 0; i < 4; i++){
+        for(int i = 0; i < 10; i++){
             objects.add(i,new Ground(groundSpacing * i, Globals.SCENE_HEIGHT / 16,groundWidth, Globals.SCENE_HEIGHT / 8 ));
         }
         player = new Player();
@@ -63,27 +63,26 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     public boolean onTouchEvent(MotionEvent event) {
         int pointerCount = event.getPointerCount();
         for(int i = 0; i < pointerCount; i++) {
-            int x = (int) event.getX();
-            int y = (int) event.getY();
+            MotionEvent.PointerCoords pointerCoords = new MotionEvent.PointerCoords();
+            event.getPointerCoords(i,pointerCoords);
+            int x = (int)pointerCoords.x;
+            int y = (int)pointerCoords.y;
             int id = event.getPointerId(i);
             int action = event.getActionMasked();
             switch (action) {
-                case MotionEvent.ACTION_DOWN:
-                    if (x < Globals.SCREEN_WIDTH / 2) {
-                        player.startJump();
-                        System.out.println("Jump");
-                    } else player.accelerate();
+                case MotionEvent.ACTION_MOVE:
+                    if(x > Globals.SCREEN_WIDTH / 2)
+                        player.ChangeXVel((2 * x - Globals.SCREEN_WIDTH)/(double)Globals.SCREEN_WIDTH);
                     break;
+                case MotionEvent.ACTION_DOWN:
                 case MotionEvent.ACTION_POINTER_DOWN:
+                    if(x < Globals.SCREEN_WIDTH / 2)
                     player.startJump();
                     break;
                 case MotionEvent.ACTION_UP:
-                    if(x > Globals.SCREEN_WIDTH / 2) player.deAccelerate();
-                    else player.stopJump();
-                    break;
                 case MotionEvent.ACTION_POINTER_UP:
-                    if(x > Globals.SCREEN_WIDTH / 2) player.deAccelerate();
-                    else player.stopJump();
+                    if(x < Globals.SCREEN_WIDTH / 2)
+                    player.stopJump();
                     break;
 
             }
@@ -124,8 +123,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         NumberFormat f = new DecimalFormat("#0.00");
         canvas.drawText("Speed: " + f.format(player.getVelX() * 2.23694) + "MPH",15,15,paint);
         canvas.drawText("Dist: " + f.format(player.getX()) + "M",15,50,paint);
-        canvas.drawText("Tap to Reset",Globals.SCREEN_WIDTH - Globals.SCREEN_WIDTH / 6,Globals.SCREEN_HEIGHT / 6, paint);
-
     }
 
 }

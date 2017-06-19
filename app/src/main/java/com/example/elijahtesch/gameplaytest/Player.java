@@ -15,20 +15,19 @@ public class Player {
     double radius;
     double x; //meters
     double y; //meters
-    //velocity meters per second
+    //velocity (meters per second)
     double velY;
     double velX;
-    double minXVel;
+    //acceleration (meters per second squared)
+    double accY;
+
+    //other state variables
+    boolean onGround;
+    boolean jumping;
     double maxXVel;
     double maxJumpHeight;
     double jumpingVelocity;
     double initialJumpHeight;
-    //velocity meters per second squared
-    double accY;
-    double accX;
-    boolean onGround;
-    boolean jumping;
-    boolean accelerating;
     double edge;
 
     public Player(){
@@ -37,15 +36,12 @@ public class Player {
         draw_radius = (int)(radius * Globals.PIX_PER_M);
         velX = 0;
         velY = 0;
-        accX = 0.25;
         accY = 0;
         x = 0;
         y = 5.0;
         onGround = false;
         jumping = false;
-        accelerating = false;
-        minXVel = 0;
-        maxXVel = 25;
+        maxXVel = 17;
         maxJumpHeight = 5;
         jumpingVelocity = 7;
 
@@ -71,15 +67,8 @@ public class Player {
         //fall of right edge of ground
         if (x > edge) onGround = false;
 
-
         //physics update
-        if (onGround){
-          if (accelerating && velX < maxXVel){
-            velX += accX;
-          }else if(!accelerating && velX > minXVel){
-            velX -= accX;
-          }
-        }else{
+        if(!onGround){
           if (!jumping){
               velY += Globals.G / MainThread.MAX_FPS;
           }
@@ -99,12 +88,8 @@ public class Player {
         canvas.drawCircle(draw_x,draw_y,draw_radius,paint);
     }
 
-    public void accelerate(){
-      accelerating = true;
-    }
-
-    public void deAccelerate(){
-      accelerating = false;
+    public void ChangeXVel(double intensity){
+      velX = maxXVel * intensity;
     }
 
     public void startJump(){
