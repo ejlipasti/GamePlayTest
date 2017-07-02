@@ -17,6 +17,8 @@ import java.util.Random;
  * Created by elijahtesch on 5/31/17.
  */
 
+ //Animations Branch
+
 public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     private MainThread thread;
     private Player player;
