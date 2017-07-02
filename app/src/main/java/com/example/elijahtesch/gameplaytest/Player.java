@@ -1,8 +1,12 @@
 package com.example.elijahtesch.gameplaytest;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
+
 
 /**
  * Created by elijahtesch on 5/31/17.
@@ -30,6 +34,8 @@ public class Player {
     double initialJumpHeight;
     double edge;
 
+    private Animation run;
+
     public Player(){
         draw_x = Globals.SCREEN_WIDTH / 4;
         radius = 1;
@@ -44,7 +50,18 @@ public class Player {
         maxXVel = 17;
         maxJumpHeight = 5;
         jumpingVelocity = 7;
-
+        //load animations
+        BitmapFactory bf = new BitmapFactory();
+        Bitmap[] runFrames = new Bitmap[8];
+        runFrames[0] = bf.decodeResource(Globals.CURRENT_CONTEXT.getResources(),R.drawable.p1);
+        runFrames[1] = bf.decodeResource(Globals.CURRENT_CONTEXT.getResources(),R.drawable.p2);
+        runFrames[2] = bf.decodeResource(Globals.CURRENT_CONTEXT.getResources(),R.drawable.p3);
+        runFrames[3] = bf.decodeResource(Globals.CURRENT_CONTEXT.getResources(),R.drawable.p4);
+        runFrames[4] = bf.decodeResource(Globals.CURRENT_CONTEXT.getResources(),R.drawable.p5);
+        runFrames[5] = bf.decodeResource(Globals.CURRENT_CONTEXT.getResources(),R.drawable.p6);
+        runFrames[6] = bf.decodeResource(Globals.CURRENT_CONTEXT.getResources(),R.drawable.p7);
+        runFrames[6] = bf.decodeResource(Globals.CURRENT_CONTEXT.getResources(),R.drawable.p8);
+        run = new Animation(runFrames,1000);
     }
 
     public void collidesWith(Ground g){
@@ -67,14 +84,17 @@ public class Player {
         //fall of right edge of ground
         if (x > edge) onGround = false;
 
-        //physics update
+        //physics & Animation logic
         if(!onGround){
           if (!jumping){
               velY += Globals.G / MainThread.MAX_FPS;
           }
+          run.stop();
           y += velY / MainThread.MAX_FPS;
-        }
+        }else if(!run.isRunning()) run.start();
         x += velX / MainThread.MAX_FPS;
+
+        run.update();
 
         //fall reset for debugging
         if(y < -3) y = 10;
@@ -84,8 +104,8 @@ public class Player {
 
     public void draw(Canvas canvas){
         Paint paint = new Paint();
-        paint.setColor(Color.RED);
-        canvas.drawCircle(draw_x,draw_y,draw_radius,paint);
+        Rect dst = new Rect(draw_x - draw_radius,draw_y - draw_radius,draw_x + draw_radius, draw_y + draw_radius);
+        run.draw(canvas,dst,paint);
     }
 
     public void ChangeXVel(double intensity){

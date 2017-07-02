@@ -1,8 +1,11 @@
 package com.example.elijahtesch.gameplaytest;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
 
 /**
  * Created by elijahtesch on 6/4/17.
@@ -18,6 +21,12 @@ public class Ground {
   double w; //width (meters)
   double h; //height (meters)
   boolean removable;
+  private static Bitmap bitmap; //static to save memory
+
+  public static void loadBitmap(){
+    BitmapFactory bf = new BitmapFactory();
+    bitmap = bf.decodeResource(Globals.CURRENT_CONTEXT.getResources(),R.drawable.pipe);
+  }
 
   public Ground(double x, double y,double w, double h){
     removable = false;
@@ -37,9 +46,8 @@ public class Ground {
 
   public void draw(Canvas canvas){
     Paint paint = new Paint();
-    paint.setColor(Color.GREEN);
-    //left top right bottom
-    canvas.drawRect(draw_x - draw_w / 2, draw_y - draw_h / 2, draw_x + draw_w / 2, draw_y + draw_h / 2,paint);
+    Rect dst = new Rect(draw_x - draw_w / 2, draw_y - draw_h / 2, draw_x + draw_w / 2, draw_y + draw_h / 2);
+    canvas.drawBitmap(bitmap,null,dst,paint);
   }
 
   public double getX(){

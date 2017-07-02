@@ -1,5 +1,7 @@
 package com.example.elijahtesch.gameplaytest;
 
+import android.content.Context;
+
 /**
  * Created by elijahtesch on 5/31/17.
  */
@@ -14,6 +16,7 @@ public class Globals {
     public static double SCENE_WIDTH; //scene width in meters
     public static double PIX_PER_M; //pixels per meter
     public static double G; //acceleration due to gravity
+    public static Context CURRENT_CONTEXT;
 
     public static void init(){
         SCENE_HEIGHT = 10; //height of scene

@@ -29,7 +29,9 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     public GamePanel(Context context) {
         super(context);
         getHolder().addCallback(this);
+        Globals.CURRENT_CONTEXT = context;
         setFocusable(true);
+
     }
 
     @Override
@@ -44,9 +46,11 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         for(int i = 0; i < 10; i++){
             objects.add(i,new Ground(groundSpacing * i, Globals.SCENE_HEIGHT / 16,groundWidth, Globals.SCENE_HEIGHT / 8 ));
         }
+        Ground.loadBitmap();
         player = new Player();
         thread.setRunning(true);
         thread.start();
+
     }
 
     @Override
@@ -112,7 +116,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     public void draw(Canvas canvas) {
         super.draw(canvas);
 
-        canvas.drawColor(Color.BLUE); //set background color
+        canvas.drawColor(Color.WHITE); //set background color
         for (int i = 0; i < objects.size(); i++){
             objects.get(i).draw(canvas);
         }
