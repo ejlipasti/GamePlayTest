@@ -1,4 +1,4 @@
-package com.example.elijahtesch.gameplaytest;
+xpackage com.example.elijahtesch.gameplaytest;
 
 import android.graphics.Canvas;
 import android.provider.Settings;

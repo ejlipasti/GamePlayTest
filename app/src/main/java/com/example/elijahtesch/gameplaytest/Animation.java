@@ -17,14 +17,23 @@ public class Animation {
     boolean running = false;
     private float frameTime; //in millis
     private long lastFrame;
+    boolean looping = true;
 
-    public void start(){
+    public void startLoop(){
         running = true;
+        looping = true;
         frameIndex = 0;
         lastFrame = System.currentTimeMillis();
     }
 
-    public void stop(){
+    public void loopOnce(){
+      running = true;
+      frameIndex = 0;
+      lastFrame = System.currentTimeMillis();
+      loop = false;
+    }
+
+    public void stopLoop(){
         running = false;
 
     }
@@ -45,7 +54,10 @@ public class Animation {
       if(!running) return;
       if(System.currentTimeMillis() - lastFrame > frameTime){
           frameIndex++;
-          if(frameIndex >= frames.length) frameIndex = 0;
+          if(frameIndex >= frames.length){
+            if(!looping) stopLoop();
+            frameIndex = 0;
+          }
           lastFrame = System.currentTimeMillis();
       }
     }
