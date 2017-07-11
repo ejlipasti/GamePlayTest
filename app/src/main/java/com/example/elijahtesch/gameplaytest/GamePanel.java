@@ -23,6 +23,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     private MainThread thread;
     private Player player;
     private ArrayList<Ground> objects;
+    private Background [] backgrounds;
     int groundSpacing = 20;
     int groundWidth = 15;
 
@@ -31,7 +32,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         getHolder().addCallback(this);
         Globals.CURRENT_CONTEXT = context;
         setFocusable(true);
-
     }
 
     @Override
@@ -42,11 +42,17 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
         thread = new MainThread(getHolder(),this);
+        Ground.loadBitmap();
         objects = new ArrayList<>();
         for(int i = 0; i < 10; i++){
             objects.add(i,new Ground(groundSpacing * i, Globals.SCENE_HEIGHT / 16,groundWidth, Globals.SCENE_HEIGHT / 8 ));
         }
-        Ground.loadBitmap();
+        Background.loadBitmap();
+        backgrounds = new Background [4];
+        backgrounds[0] = new Background(0,2);
+        backgrounds[1] = new Background(Globals.SCREEN_WIDTH,2);
+        backgrounds[2] = new Background(0,1);
+        backgrounds[3] = new Background(Globals.SCREEN_WIDTH,1);
         player = new Player();
         thread.setRunning(true);
         thread.start();
@@ -109,6 +115,9 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
                 objects.add(new Ground(newX, newY,5 + 5 * r.nextInt(2), Globals.SCENE_HEIGHT / 8 ));
             }
         }
+        for (int i = 0; i < backgrounds.length; i++){
+          backgrounds[i].update(player.getVelX());
+        }
         player.update();
     }
 
@@ -117,12 +126,14 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         super.draw(canvas);
 
         canvas.drawColor(Color.WHITE); //set background color
+        for (int i = 0; i < backgrounds.length; i++){
+          backgrounds[i].draw(canvas);
+        }
         for (int i = 0; i < objects.size(); i++){
             objects.get(i).draw(canvas);
         }
-
-
         player.draw(canvas);
+
         //print speed in mph
         Paint paint = new Paint();
         paint.setColor(Color.BLACK);

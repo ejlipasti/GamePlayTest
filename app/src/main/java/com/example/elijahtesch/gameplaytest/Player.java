@@ -89,9 +89,9 @@ public class Player {
           if (!jumping){
               velY += Globals.G / MainThread.MAX_FPS;
           }
-          run.stop();
+          run.stopLoop();
           y += velY / MainThread.MAX_FPS;
-        }else if(!run.isRunning()) run.start();
+        }else if(!run.isRunning()) run.startLoop();
         x += velX / MainThread.MAX_FPS;
 
         run.update();
@@ -119,6 +119,7 @@ public class Player {
             velY = jumpingVelocity;
             initialJumpHeight = y;
             y += velY / MainThread.MAX_FPS;
+            run.loopOnce();
         }
     }
 

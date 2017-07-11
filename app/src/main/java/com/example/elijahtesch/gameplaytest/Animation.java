@@ -30,7 +30,7 @@ public class Animation {
       running = true;
       frameIndex = 0;
       lastFrame = System.currentTimeMillis();
-      loop = false;
+      looping = false;
     }
 
     public void stopLoop(){
@@ -55,8 +55,8 @@ public class Animation {
       if(System.currentTimeMillis() - lastFrame > frameTime){
           frameIndex++;
           if(frameIndex >= frames.length){
-            if(!looping) stopLoop();
-            frameIndex = 0;
+            if(!looping) running = false;
+            else frameIndex = 0;
           }
           lastFrame = System.currentTimeMillis();
       }
