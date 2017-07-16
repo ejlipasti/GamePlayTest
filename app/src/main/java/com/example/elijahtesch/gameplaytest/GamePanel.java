@@ -54,6 +54,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         backgrounds[2] = new Background(0,1);
         backgrounds[3] = new Background(Globals.SCREEN_WIDTH,1);
         player = new Player();
+
         thread.setRunning(true);
         thread.start();
 
@@ -126,9 +127,13 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         super.draw(canvas);
 
         canvas.drawColor(Color.WHITE); //set background color
-        for (int i = 0; i < backgrounds.length; i++){
-          backgrounds[i].draw(canvas);
-        }
+        canvas.drawARGB(50,0,0,0);
+        backgrounds[0].draw(canvas);
+        backgrounds[1].draw(canvas);
+        canvas.drawARGB(50,0,0,0);
+        backgrounds[2].draw(canvas);
+        backgrounds[3].draw(canvas);
+        canvas.drawARGB(50,0,0,0);
         for (int i = 0; i < objects.size(); i++){
             objects.get(i).draw(canvas);
         }

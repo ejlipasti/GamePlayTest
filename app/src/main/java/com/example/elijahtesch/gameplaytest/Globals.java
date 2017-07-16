@@ -23,8 +23,8 @@ public class Globals {
         SCENE_WIDTH = SCENE_HEIGHT * ((double)SCREEN_WIDTH / SCREEN_HEIGHT);
         PIX_PER_M = SCREEN_HEIGHT / SCENE_HEIGHT;
         G = -15; //meters per second squared
-        System.out.println("Pixel/Meter  = " + PIX_PER_M);
-        System.out.println("G = " + G);
+        System.out.println("H " + SCREEN_HEIGHT);
+        System.out.println("W " + SCREEN_WIDTH);
     }
 
 }

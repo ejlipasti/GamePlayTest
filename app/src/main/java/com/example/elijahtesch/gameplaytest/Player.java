@@ -38,7 +38,7 @@ public class Player {
 
     public Player(){
         draw_x = Globals.SCREEN_WIDTH / 4;
-        radius = 1;
+        radius = 1.3;
         draw_radius = (int)(radius * Globals.PIX_PER_M);
         velX = 0;
         velY = 0;
@@ -52,16 +52,12 @@ public class Player {
         jumpingVelocity = 7;
         //load animations
         BitmapFactory bf = new BitmapFactory();
-        Bitmap[] runFrames = new Bitmap[8];
+        Bitmap[] runFrames = new Bitmap[4];
         runFrames[0] = bf.decodeResource(Globals.CURRENT_CONTEXT.getResources(),R.drawable.p1);
-        runFrames[1] = bf.decodeResource(Globals.CURRENT_CONTEXT.getResources(),R.drawable.p2);
-        runFrames[2] = bf.decodeResource(Globals.CURRENT_CONTEXT.getResources(),R.drawable.p3);
-        runFrames[3] = bf.decodeResource(Globals.CURRENT_CONTEXT.getResources(),R.drawable.p4);
-        runFrames[4] = bf.decodeResource(Globals.CURRENT_CONTEXT.getResources(),R.drawable.p5);
-        runFrames[5] = bf.decodeResource(Globals.CURRENT_CONTEXT.getResources(),R.drawable.p6);
-        runFrames[6] = bf.decodeResource(Globals.CURRENT_CONTEXT.getResources(),R.drawable.p7);
-        runFrames[6] = bf.decodeResource(Globals.CURRENT_CONTEXT.getResources(),R.drawable.p8);
-        run = new Animation(runFrames,1000);
+        runFrames[1] = bf.decodeResource(Globals.CURRENT_CONTEXT.getResources(),R.drawable.p3);
+        runFrames[2] = bf.decodeResource(Globals.CURRENT_CONTEXT.getResources(),R.drawable.p2);
+        runFrames[3] = bf.decodeResource(Globals.CURRENT_CONTEXT.getResources(),R.drawable.p3);
+        run = new Animation(runFrames,640);
     }
 
     public void collidesWith(Ground g){
