@@ -19,10 +19,10 @@ public class Globals {
     public static Context CURRENT_CONTEXT;
 
     public static void init(){
-        SCENE_HEIGHT = 10; //height of scene
+        SCENE_HEIGHT = 8; //height of scene
         SCENE_WIDTH = SCENE_HEIGHT * ((double)SCREEN_WIDTH / SCREEN_HEIGHT);
         PIX_PER_M = SCREEN_HEIGHT / SCENE_HEIGHT;
-        G = -15; //meters per second squared
+        G = -9.8; //Acceleration due to gravity
         System.out.println("H " + SCREEN_HEIGHT);
         System.out.println("W " + SCREEN_WIDTH);
     }

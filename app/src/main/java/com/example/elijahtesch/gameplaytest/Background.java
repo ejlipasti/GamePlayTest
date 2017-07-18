@@ -47,8 +47,6 @@ public class Background {
     public void draw(Canvas canvas){
       Paint paint = new Paint();
         canvas.drawBitmap(bitmaps[index],(int)draw_x,0,paint);
-      //Rect dst = new Rect((int)draw_x,0,(int)draw_x + Globals.SCREEN_WIDTH,Globals.SCREEN_HEIGHT);
-      //canvas.drawBitmap(bitmaps[index],null,dst,paint);
     }
 
 

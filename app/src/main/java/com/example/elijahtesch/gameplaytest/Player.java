@@ -38,7 +38,7 @@ public class Player {
 
     public Player(){
         draw_x = Globals.SCREEN_WIDTH / 4;
-        radius = 1.3;
+        radius = 1;
         draw_radius = (int)(radius * Globals.PIX_PER_M);
         velX = 0;
         velY = 0;
@@ -47,16 +47,21 @@ public class Player {
         y = 5.0;
         onGround = false;
         jumping = false;
-        maxXVel = 17;
-        maxJumpHeight = 5;
-        jumpingVelocity = 7;
+        maxXVel = 15;
+        maxJumpHeight = 3;
+        jumpingVelocity = 5;
         //load animations
         BitmapFactory bf = new BitmapFactory();
-        Bitmap[] runFrames = new Bitmap[4];
+        Bitmap[] runFrames = new Bitmap[6];
         runFrames[0] = bf.decodeResource(Globals.CURRENT_CONTEXT.getResources(),R.drawable.p1);
-        runFrames[1] = bf.decodeResource(Globals.CURRENT_CONTEXT.getResources(),R.drawable.p3);
-        runFrames[2] = bf.decodeResource(Globals.CURRENT_CONTEXT.getResources(),R.drawable.p2);
-        runFrames[3] = bf.decodeResource(Globals.CURRENT_CONTEXT.getResources(),R.drawable.p3);
+        runFrames[1] = bf.decodeResource(Globals.CURRENT_CONTEXT.getResources(),R.drawable.p2);
+        runFrames[2] = bf.decodeResource(Globals.CURRENT_CONTEXT.getResources(),R.drawable.p3);
+        runFrames[3] = bf.decodeResource(Globals.CURRENT_CONTEXT.getResources(),R.drawable.p4);
+        runFrames[4] = bf.decodeResource(Globals.CURRENT_CONTEXT.getResources(),R.drawable.p5);
+        runFrames[5] = bf.decodeResource(Globals.CURRENT_CONTEXT.getResources(),R.drawable.p6);
+        for (int i = 0; i < runFrames.length; i++){
+            runFrames[i] = Bitmap.createScaledBitmap(runFrames[i],draw_radius * 2, draw_radius * 2,false);
+        }
         run = new Animation(runFrames,640);
     }
 
@@ -100,8 +105,8 @@ public class Player {
 
     public void draw(Canvas canvas){
         Paint paint = new Paint();
-        Rect dst = new Rect(draw_x - draw_radius,draw_y - draw_radius,draw_x + draw_radius, draw_y + draw_radius);
-        run.draw(canvas,dst,paint);
+        //Rect dst = new Rect(draw_x - draw_radius,draw_y - draw_radius,draw_x + draw_radius, draw_y + draw_radius);
+        run.draw(canvas,draw_x,draw_y,paint);
     }
 
     public void ChangeXVel(double intensity){

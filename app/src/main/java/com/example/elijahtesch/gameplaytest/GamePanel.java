@@ -134,6 +134,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         backgrounds[2].draw(canvas);
         backgrounds[3].draw(canvas);
         canvas.drawARGB(50,0,0,0);
+
         for (int i = 0; i < objects.size(); i++){
             objects.get(i).draw(canvas);
         }
@@ -141,7 +142,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
         //print speed in mph
         Paint paint = new Paint();
-        paint.setColor(Color.BLACK);
+        paint.setColor(Color.WHITE);
         NumberFormat f = new DecimalFormat("#0.00");
         canvas.drawText("Speed: " + f.format(player.getVelX() * 2.23694) + "MPH",15,15,paint);
         canvas.drawText("Dist: " + f.format(player.getX()) + "M",15,50,paint);

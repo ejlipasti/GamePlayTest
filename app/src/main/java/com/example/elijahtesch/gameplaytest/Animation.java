@@ -67,6 +67,13 @@ public class Animation {
       canvas.drawBitmap(frames[frameIndex],null,destination,paint);
     }
 
+    public void draw(Canvas canvas, int draw_x,int draw_y, Paint paint){
+        canvas.drawBitmap(frames[frameIndex],
+                draw_x - (frames[frameIndex].getWidth() / 2),
+                draw_y - (frames[frameIndex].getHeight() / 2),
+                paint);
+    }
+
 
 
 
