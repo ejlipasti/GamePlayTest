@@ -17,6 +17,7 @@ public class Background {
     private static Bitmap [] bitmaps;
     int index;
     int layer;
+    Paint paint;
 
     public static void loadBitmap(){
       bitmaps = new Bitmap[2];
@@ -33,6 +34,7 @@ public class Background {
       this.layer = layer;
       Random random = new Random();
       index = random.nextInt(bitmaps.length);
+        paint = new Paint();
     }
 
     public void update(double player_speed){
@@ -41,11 +43,10 @@ public class Background {
         index = random.nextInt(bitmaps.length);
         draw_x = Globals.SCREEN_WIDTH;
       }
-      draw_x -= ((player_speed * Globals.PIX_PER_M) / MainThread.MAX_FPS) * Math.pow(0.5,layer + 1) ;
+      draw_x -= ((player_speed * Globals.PIX_PER_M) / MainThread.MAX_FPS) * Math.pow(0.5,layer + 1);
     }
 
     public void draw(Canvas canvas){
-      Paint paint = new Paint();
         canvas.drawBitmap(bitmaps[index],(int)draw_x,0,paint);
     }
 

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.opengl.GLSurfaceView;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -19,7 +20,7 @@ import java.util.Random;
 
  //Animations Branch
 
-public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
+public class GamePanel extends GLSurfaceView implements SurfaceHolder.Callback {
     private MainThread thread;
     private Player player;
     private ArrayList<Ground> objects;
@@ -44,7 +45,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         thread = new MainThread(getHolder(),this);
         Ground.loadBitmap();
         objects = new ArrayList<>();
-        for(int i = 0; i < 10; i++){
+        for(int i = 0; i < 50; i++){
             objects.add(i,new Ground(groundSpacing * i, Globals.SCENE_HEIGHT / 16,groundWidth, Globals.SCENE_HEIGHT / 8 ));
         }
         Background.loadBitmap();

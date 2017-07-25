@@ -62,11 +62,13 @@ public class Animation {
       }
     }
 
+    //draws animation scaled a specific location
     public void draw(Canvas canvas, Rect destination, Paint paint){
       //if(!running) return;
       canvas.drawBitmap(frames[frameIndex],null,destination,paint);
     }
 
+    //draws animation centered at x-y position
     public void draw(Canvas canvas, int draw_x,int draw_y, Paint paint){
         canvas.drawBitmap(frames[frameIndex],
                 draw_x - (frames[frameIndex].getWidth() / 2),

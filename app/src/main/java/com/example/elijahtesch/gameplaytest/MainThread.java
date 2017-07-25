@@ -10,7 +10,7 @@ import android.view.SurfaceHolder;
 
 public class MainThread extends Thread{
     public static final int MAX_FPS = 30;
-    private double averageFPS;
+    public static double averageFPS;
     private SurfaceHolder surfaceHolder;
     private  GamePanel gamePanel;
     private  boolean running;
@@ -24,6 +24,7 @@ public class MainThread extends Thread{
         super();
         this.surfaceHolder = surfaceHolder;
         this.gamePanel = gamePanel;
+        averageFPS = MAX_FPS;
     }
 
     @Override
